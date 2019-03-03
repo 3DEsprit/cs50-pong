@@ -9,7 +9,7 @@ local push = {
   
   defaults = {
     fullscreen = false,
-    resizable = false,
+    resizable = true,
     pixelperfect = false,
     highdpi = true,
     canvas = true
@@ -98,7 +98,7 @@ function push:setShader(name, shader)
 end
 
 function push:initValues()
-  self._PSCALE = self._highdpi and love.window.getPixelScale() or 1
+  self._PSCALE = self._highdpi and 1 -- love.window.getDPIScale() or 1
   
   self._SCALE = {
     x = self._RWIDTH/self._WWIDTH * self._PSCALE,
@@ -133,10 +133,10 @@ function push:start()
     love.graphics.push()
     love.graphics.setCanvas(self.canvases[1].canvas)
   else
-    love.graphics.translate(self._OFFSET.x, self._OFFSET.y)
-    love.graphics.setScissor(self._OFFSET.x, self._OFFSET.y, self._WWIDTH*self._SCALE.x, self._WHEIGHT*self._SCALE.y)
+    -- love.graphics.translate(self._OFFSET.x, self._OFFSET.y)
+    -- love.graphics.setScissor(self._OFFSET.x, self._OFFSET.y, self._WWIDTH*self._SCALE.x, self._WHEIGHT*self._SCALE.y)
     love.graphics.push()
-    love.graphics.scale(self._SCALE.x, self._SCALE.y)
+    -- love.graphics.scale(self._SCALE.x, self._SCALE.y)
   end
 end
 
@@ -147,7 +147,7 @@ function push:finish(shader)
 
     love.graphics.pop()
 
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
 
     --draw canvas
     love.graphics.setCanvas(_render.canvas)
@@ -218,7 +218,7 @@ function push:switchFullscreen(winw, winh)
 end
 
 function push:resize(w, h)
-  local pixelScale = love.window.getPixelScale()
+  local pixelScale = love.window.getDPIScale()
   if self._highdpi then w, h = w / pixelScale, h / pixelScale end
   self._RWIDTH = w
   self._RHEIGHT = h
