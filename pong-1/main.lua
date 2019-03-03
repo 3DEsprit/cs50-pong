@@ -40,7 +40,7 @@ function love.load()
     -- use nearest-neighbor filtering on upscaling and downscaling to prevent blurring of text 
     -- and graphics; try removing this function to see the difference!
     love.graphics.setDefaultFilter('nearest', 'nearest')
-
+ 
     -- initialize our virtual resolution, which will be rendered within our
     -- actual window no matter its dimensions; replaces our love.window.setMode call
     -- from the last example

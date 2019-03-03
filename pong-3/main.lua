@@ -30,8 +30,10 @@ push = require 'push'
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
 
-VIRTUAL_WIDTH = 432
-VIRTUAL_HEIGHT = 243
+-- VIRTUAL_WIDTH = 432
+-- VIRTUAL_HEIGHT = 243
+VIRTUAL_WIDTH = 1280
+VIRTUAL_HEIGHT = 720
 
 -- speed at which we will move our paddle; multiplied by dt in update
 PADDLE_SPEED = 200
@@ -52,10 +54,16 @@ function love.load()
     love.graphics.setFont(smallFont)
 
     -- initialize window with virtual resolution
-    push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
+    -- push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
+    --     fullscreen = false,
+    --     resizable = false,
+    --     vsync = true
+    -- })
+
+    love.window.setMode(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, {
         fullscreen = false,
         resizable = false,
-        vsync = true
+        highdpi = true
     })
 
     -- initialize score variables, used for rendering on the screen and keeping
@@ -114,7 +122,7 @@ function love.draw()
 
     -- clear the screen with a specific color; in this case, a color similar
     -- to some versions of the original Pong
-    love.graphics.clear(40, 45, 52, 255)
+    love.graphics.clear(0.2, 0.21, 0.3, 1)
 
     -- draw welcome text toward the top of the screen
     love.graphics.setFont(smallFont)
@@ -124,15 +132,15 @@ function love.draw()
     -- need to switch font to draw before actually printing
     love.graphics.setFont(scoreFont)
     love.graphics.print(tostring(player1Score), VIRTUAL_WIDTH / 2 - 50, 
-        VIRTUAL_HEIGHT / 3)
+        VIRTUAL_HEIGHT / 4)
     love.graphics.print(tostring(player2Score), VIRTUAL_WIDTH / 2 + 30,
-        VIRTUAL_HEIGHT / 3)
+        VIRTUAL_HEIGHT / 4)
 
     -- render first paddle (left side), now using the players' Y variable
     love.graphics.rectangle('fill', 10, player1Y, 5, 20)
 
     -- render second paddle (right side)
-    love.graphics.rectangle('fill', VIRTUAL_WIDTH - 10, player2Y, 5, 20)
+    love.graphics.rectangle('fill', VIRTUAL_WIDTH - 20, player2Y, 5, 20)
 
     -- render ball (center)
     love.graphics.rectangle('fill', VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
