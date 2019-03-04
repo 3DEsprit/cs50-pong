@@ -32,3 +32,9 @@ $ zip -r pong.love *
 ```
 $ love pong.love
 ```
+
+OR
+
+```
+$ love .
+```
